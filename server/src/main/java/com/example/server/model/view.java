@@ -1,29 +1,44 @@
 package com.example.server.model;
+import jakarta.persistence.*;
 
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Table;
-
-@Table
+@Entity
+@Table(name = "views")
 public class view {
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id;
 
+    @Column
     String ChartType;
+    @Column
     String Country;
+    @Column
     String Indicator;
+    @Column
     String StartDate;
+
+    @Column
     String EndDate;
 
 
+    public view (String ChartType,String Country,String Indicator,String StartDate,String EndDate){
+        this.ChartType=ChartType;
+        this.Country=Country;
+        this.Indicator=Indicator;
+        this.StartDate=StartDate;
+        this.EndDate=EndDate;
+    }
+
+    public view(){
+
+    }
+
+
+    public long getId(){
+        return id;
+    }
     public String getEndDate() {
         return EndDate;
     }

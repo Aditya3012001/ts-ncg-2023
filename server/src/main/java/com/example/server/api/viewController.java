@@ -3,8 +3,11 @@ package com.example.server.api;
 import com.example.server.Service.viewService;
 import com.example.server.model.view;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -18,7 +21,7 @@ viewService vs;
 
     // getting all views
     @GetMapping("/view")
-    public Iterable<view> get(){
+    public List<view> get(){
         return vs.get();
     }
 
@@ -45,7 +48,18 @@ viewService vs;
 
     // creating a view
     @PostMapping("/view")
-    public view createView(@RequestBody view v){
-       return vs.save(v);
+    public ResponseEntity<view>createView(@RequestBody view v){
+       ResponseEntity<view> temp = vs.save(v);
+       return temp;
     }
+
+    @PutMapping("/view/{id}")
+    public ResponseEntity<view> updateView(@PathVariable Integer id,@RequestBody view v){
+        return vs.updateView(id,v);
+    }
+
+
+
 }
+
+
