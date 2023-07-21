@@ -21,27 +21,27 @@ viewService vs;
 
     // getting all views
     @GetMapping("/view")
-    public List<view> get(){
+    public ResponseEntity<List<view>> get(){
         return vs.get();
     }
 
     @GetMapping("/")
-    public String fun(){
-        return "Welcome to views";
+    public ResponseEntity<String> fun(){
+        return new ResponseEntity<String>("Welcome to views",HttpStatus.ACCEPTED);
     }
 
     // getting views by id
     @GetMapping("/view/{id}")
-    Optional<view> getView(@PathVariable Integer id){
-        Optional<view> v=vs.get(id);
+    ResponseEntity<view> getView(@PathVariable Integer id){
+        ResponseEntity<view> v=vs.get(id);
         return v;
     }
 
 
     // delete view by id
     @DeleteMapping("/view/{id}")
-    public void  deleteView(@PathVariable Integer id){
-        vs.remove(id);
+    public ResponseEntity<view>  deleteView(@PathVariable Integer id){
+        return vs.remove(id);
     }
 
 
@@ -57,9 +57,6 @@ viewService vs;
     public ResponseEntity<view> updateView(@PathVariable Integer id,@RequestBody view v){
         return vs.updateView(id,v);
     }
-
-
-
 }
 
 

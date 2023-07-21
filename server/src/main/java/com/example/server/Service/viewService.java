@@ -20,18 +20,32 @@ public class viewService {
 
 
 
-    public List<view> get(){
-        return vp.findAll();
+    public ResponseEntity<List<view>> get(){
+        List<view> l= vp.findAll();
+        return new ResponseEntity<>(l,HttpStatus.OK);
     }
 
-    public Optional<view> get(Integer id){
-        return vp.findById(id);
+    public ResponseEntity<view> get(Integer id){
+        Optional<view> _view= vp.findById(id);
+        if(_view.isPresent()){
+            return new ResponseEntity<>(_view.get(),HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 
 
-    public void remove(Integer id){
-        vp.deleteById(id);
+    public ResponseEntity<view> remove(Integer id){
+
+        Optional<view > view_data = vp.findById(id);
+
+        if(view_data.isPresent()){
+            vp.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+
     }
 
 
